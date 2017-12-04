@@ -13,18 +13,42 @@ import utils.Node;
 
 public class Agent {
 	
-	Node NextStop;
+	public Node NextStop;
+	public int distanceDone;
 	protected ArrayList<String> path;
-	//falta variaveis
+	ArrayList<Node> City;
+	int x, y;
 	
-	public Agent(int x, int y, int city, ArrayList<Node> Graph) {
+	
+	
+	public Agent(int x1, int y1, int city, ArrayList<Node> Graph) {
 		
 		
-		//inicializar variaveis
+		distanceDone = 0;
+		City = Graph;
+		x = x1;
+		y = y1;
 		
 		
 	}
 
 	
-	//metodos get, etc...
+	public int getX() {
+		
+		return this.x;
+		
+	}
+	
+	public int getY() {
+		
+		return this.y;
+		
+	}
+	
+	public Node getNextStop() {
+		
+		return NextStop;
+		
+	}
+	
 }
