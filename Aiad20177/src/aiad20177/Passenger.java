@@ -13,44 +13,43 @@ import jade.domain.FIPAException;
 	public class Passenger extends Agent{
 		
 		
-		int x, y;
-		String destiny;
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private static int idCounter = 1;
+		int x, y, id;
+		String destination;
 		
 		
-		public Passenger(int x1, int y1, String destiny1) {
+		public Passenger(int x1, int y1, String destination1) {
 			
+			
+			this.id = idCounter;
+			idCounter++;
 			this.x = x1;
 			this.y = y1;
-			this.destiny = destiny1;
+			this.destination = destination1;
 			
 			
 		}
 		
 		
-		/*gets
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
+		public int getX()
+		{
+			return this.x;
+		}
+		
+		public int getY()
+		{
+			return this.y;
+		}
+		
+		public String getDestination() {
+			
+			return this.destination;
+			
+		}
 
 	   // classe do behaviour
 	   class PassengerBehaviour extends SimpleBehaviour {

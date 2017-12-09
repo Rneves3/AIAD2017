@@ -1,111 +1,25 @@
 package aiad20177;
 import jade.core.Agent;
-import jade.core.*;
-import jade.core.behaviours.*;
+import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
 
-	public class Taxi extends Agent{
+public class Central extends Agent{
 		
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
-		private static int idCounter = 1;
-		int id;
-		int x, y;
-		double taximeter = 0.0;
-		boolean occupied = false;
-		int freeSpace = 4;
-		
-		
-		public Taxi(int x1, int y1, int capacity) {
-			
-			
-			this.id = idCounter;
-			idCounter++;
-			this.x = x1;
-			this.y = y1;
-			this.freeSpace = capacity;
-			
-			
-		}
-		
-		
-		
-		public int getID() {
-			
-			return this.id;
-			
-		}
-		
-		public int getX()
-		{
-			return this.x;
-		}
-		
-		public int getY()
-		{
-			return this.y;
-		}
-		
-		public boolean getOccupied() {
-			
-			return this.occupied;
-			
-		}
-		
-		public int getFreeSpace() {
-			
-			return freeSpace;
-			
-		}
-		
-		public double getTaximeter() {
-			
-			return taximeter;
-			
-		}
-		
-		public void setOccupied() {
-			
-			if (this.occupied == true) {
-				
-				this.occupied = false;
-				
-			}
-			else {
-				
-				this.occupied = true;
-				
-			}
-			
-		}
-		
-		public void setFreeSpace(int clients) {
-			
-			this.freeSpace = this.freeSpace - clients;
-			
-		}
 		
 		
 	   // classe do behaviour
-	   class TaxiBehaviour extends SimpleBehaviour {
-	      /**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		
-		
-		private int n = 0;
+	   class CentralBehaviour extends SimpleBehaviour {
+	      private int n = 0;
 
 	      // construtor do behaviour
-	      public TaxiBehaviour(Agent a) {
+	      public CentralBehaviour(Agent a) {
 	         super(a);
 	      }
 
@@ -167,7 +81,7 @@ import jade.domain.FIPAException;
 	      dfd.setName(getAID());
 	      ServiceDescription sd = new ServiceDescription();
 	      sd.setName(getName());
-	      sd.setType("TaxiAgent " + tipo);
+	      sd.setType("Agente " + tipo);
 	      dfd.addServices(sd);
 	      try {
 	         DFService.register(this, dfd);
@@ -176,9 +90,26 @@ import jade.domain.FIPAException;
 	      }
 
 	      // cria behaviour
-	      TaxiBehaviour b = new TaxiBehaviour(this);
+/*	      TaxiBehaviour b = new TaxiBehaviour(this);
 	      addBehaviour(b);
 		  
+	      // toma a iniciativa se for agente "pong"
+	      if(tipo.equals("pong")) {
+	         // pesquisa DF por agentes "ping"
+	         DFAgentDescription template = new DFAgentDescription();
+	         ServiceDescription sd1 = new ServiceDescription();
+	         sd1.setType("Agente ping");
+	         template.addServices(sd1);
+	         try {
+	            DFAgentDescription[] result = DFService.search(this, template);
+	            // envia mensagem "pong" inicial a todos os agentes "ping"
+	            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+	            for(int i=0; i<result.length; ++i)
+	               msg.addReceiver(result[i].getName());
+	            msg.setContent("pong");
+	            send(msg);
+	         } catch(FIPAException e) { e.printStackTrace(); }
+	      }*/
 
 	   }   // fim do metodo setup
 
@@ -191,9 +122,5 @@ import jade.domain.FIPAException;
 	         e.printStackTrace();
 	      }
 	   }
-	   
-	   protected double distance(int x, int y, int x1, int y1) {
-			return Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
-		}
 
 	}   //
